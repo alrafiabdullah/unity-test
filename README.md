@@ -29,6 +29,7 @@ EMAIL_HOST_PASSWORD=
 EMAIL_PORT=
 ```
 
+- Install and run [Redis](https://redis.io/topics/quickstart)
 - Run `python3 manage.py migrate` to create the database
 - Run following commands simultaneously in different terminals:
 
