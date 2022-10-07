@@ -1,3 +1,7 @@
+from datetime import datetime
+
+from django.shortcuts import render
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -35,8 +39,11 @@ class EmailSubscriptionView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
-        email_subscription = EmailSubscription.objects.get(
-            email=request.data["email"])
+        try:
+            email_subscription = EmailSubscription.objects.get(
+                email=request.data["email"])
+        except:
+            return Response({"message": "Email not found"}, status=status.HTTP_400_BAD_REQUEST)
         serializer = EmailSubscriptionCRUDSerializer(
             email_subscription, data=request.data)
         if serializer.is_valid():
@@ -57,3 +64,20 @@ class EmailSubscriptionView(APIView):
             return Response({"message": "Email not found"}, status=status.HTTP_400_BAD_REQUEST)
         email_subscription.delete()
         return Response({"message": "Email subscription deleted"}, status=status.HTTP_200_OK)
+
+# HTML Views
+
+
+def subscribe_view(request):
+    all_subscriptions = EmailSubscription.objects.all().order_by("-created_at")
+    this_month_subscriptions = EmailSubscription.objects.filter(
+        created_at__month=datetime.now().month).order_by("-created_at").count()
+    unsubscribed_count = EmailSubscription.objects.filter(
+        is_subscribed=False).count()
+
+    context = {
+        "subscriptions": all_subscriptions,
+        "this_month_subscriber_count": this_month_subscriptions,
+        "unsubscribed_count": unsubscribed_count,
+    }
+    return render(request, 'unity/subscribe.html', context)
