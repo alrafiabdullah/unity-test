@@ -84,7 +84,7 @@ def subscribe_view(request):
         created_at__month=datetime.now().month).order_by("-created_at").count()
     unsubscribed_count = EmailSubscription.objects.filter(
         is_subscribed=False).count()
-
+    print(this_month_subscriptions)
     context = {
         "subscriptions": all_subscriptions,
         "this_month_subscriber_count": this_month_subscriptions,
