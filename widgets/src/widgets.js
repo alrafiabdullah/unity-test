@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 
 // TODO: Replace this endpoint with your REST API endpoint
-const LEAD_API = 'http://localhost:8000/leads';
+const LEAD_API = 'http://127.0.0.1:8000/api/v1/unity/subscribe';
 
 export const LeadWidget = function (props) {
 
   const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
   let buttonStyles = {};
   if (email === '') {
     buttonStyles = {
@@ -27,7 +28,8 @@ export const LeadWidget = function (props) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: email
+        email: email,
+        is_subscribed: subscribed
       })
     }).then(
       resp => resp.json()
@@ -51,6 +53,8 @@ export const LeadWidget = function (props) {
           onChange={(event) => setEmail(event.target.value)}
           style={styles.input}
         />
+        <small>Do you want to subscribe our newsletter?</small>
+        <input type="checkbox" onChange={(e) => setSubscribed(e.target.value)} style={styles.input} />
       </div>
       <div style={styles.buttonContainer}>
         <button
