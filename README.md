@@ -2,6 +2,12 @@
 
 ##
 
+## Status
+
+[![Unity Subscriber CI](https://github.com/alrafiabdullah/unity-test/actions/workflows/unity_ci.yml/badge.svg)](https://github.com/alrafiabdullah/unity-test/actions/workflows/unity_ci.yml)
+
+##
+
 ## Requirements
 
 - Create and activate a virtual environment
