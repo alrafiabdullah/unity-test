@@ -5,6 +5,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from .models import EmailSubscription
 from .serializers import EmailSubscriptionSerializer, EmailSubscriptionCRUDSerializer
@@ -25,6 +26,8 @@ class Index(APIView):
 
 
 class EmailSubscriptionView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         email_subscriptions = EmailSubscription.objects.all()
         serializer = EmailSubscriptionSerializer(
@@ -65,9 +68,8 @@ class EmailSubscriptionView(APIView):
         email_subscription.delete()
         return Response({"message": "Email subscription deleted"}, status=status.HTTP_200_OK)
 
+
 # HTML Views
-
-
 def subscribe_view(request):
     all_subscriptions = EmailSubscription.objects.all().order_by("-created_at")
     this_month_subscriptions = EmailSubscription.objects.filter(
