@@ -31,14 +31,14 @@ jobs:
       - name: Install Dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r unity_test/requirements.txt
       - name: DB Setup
         run: |
-          python3 manage.py makemigrations
-          python3 manage.py migrate
+          python3 unity_test/manage.py makemigrations
+          python3 unity_test/manage.py migrate
       - name: Staticfiles
         run: |
-          mkdir staticfiles
+          mkdir unity_test/staticfiles
       - name: Run Tests
         run: |
-          python3 manage.py test --noinput
+          python3 unity_test/manage.py test --noinput
