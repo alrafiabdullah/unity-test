@@ -29,6 +29,14 @@ class EmailSubscriptionView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
+        if "email" in request.query_params:
+            try:
+                email_subscription = EmailSubscription.objects.get(
+                    email=request.query_params["email"])
+            except:
+                return Response({"message": "Email not found"}, status=status.HTTP_400_BAD_REQUEST)
+            serializer = EmailSubscriptionSerializer(email_subscription)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         email_subscriptions = EmailSubscription.objects.all()
         serializer = EmailSubscriptionSerializer(
             email_subscriptions, many=True)
