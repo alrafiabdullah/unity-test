@@ -31,11 +31,11 @@ EMAIL_PORT=
 
 - Install and run [Redis](https://redis.io/topics/quickstart)
 - Run `python3 manage.py migrate` to create the database
-- Run following commands simultaneously in different terminals:
+- Go to `unity_test` directory and run following commands simultaneously in different terminals:
 
   - Run `python3 manage.py runserver`.
-  - Run `celery -A cache_celery.celery worker -l info`.
-  - Run `celery -A cache_celery.celery beat -l info`.
+  - Run `celery -A unity_test.celery worker -l info`.
+  - Run `celery -A unity_test.celery beat -l info`.
 
 - Run `python3 manage.py test` to run the tests.
 
