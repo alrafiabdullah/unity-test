@@ -41,4 +41,4 @@ jobs:
           mkdir unity_test/staticfiles
       - name: Run Tests
         run: |
-          python3 unity_test/manage.py test --noinput
+          python3 unity_test/manage.py test unity
