@@ -52,6 +52,7 @@ EMAIL_PORT=
 - [x] Exposed an REST API to be used by the widget to submit the email data.
 - [x] Created a Django view for listing the emails. As shown in the figma file for reference.
 - [x] Bonus
+  - [x] Printed the monthly subscribed email count in the console.
   - [x] Created a celery periodic task that runs every Monday and Wednesday and `sends newsletter via email` to all subscribers.
   - [x] Printed the `number of new emails` added in the current calendar month to the console.
   - [x] Added `unit testing`.
